@@ -24,7 +24,7 @@ public class Journal implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String bemerkung;
-
+ 
 	@Temporal(TemporalType.DATE)
 	private Date datum = new Date();
 
