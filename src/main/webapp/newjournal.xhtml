@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/template2.xhtml"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="cph_menu">
+
+		<div id="menu">
+			<ul>
+				<li><h:outputLink value="index.xhtml">Home</h:outputLink></li>
+				<li class="current_page_item"><h:outputLink
+						value="journal.xhtml">Übersicht</h:outputLink></li>
+				<li><a href="korrektur.xhtml" accesskey="3" title="">Korrektur</a></li>
+				<li><a href="task.xhtml" accesskey="4" title="">Task</a></li>
+				<li><h:outputLink value="verbuchen.xhtml" accesskey="5">Verbuchen</h:outputLink></li>
+				<li><a href="auswertung.xhtml" accesskey="6" title="">Auswertung</a></li>
+			</ul>
+		</div>
+
+
+	</ui:define>
+	<ui:define name="cph_content">
+		<h:form id="form">
+		
+			<h:panelGroup id="journal">
+
+
+				<!-- Hinzufuegen eines Journal Eintrags -->
+				<ui:include src="journalAdd.xhtml" />
+
+
+				<!-- Anzeige der Woche -->
+
+
+				<p:outputPanel id="journal-woche">
+
+					<h:panelGrid columns="3" class="journalWochen">
+
+
+						<p:commandLink id="letzteWoche"
+							actionListener="#{journalController.letzteWoche}"
+							styleClass="letzteWoche" update="journal-woche" immediate="true">
+
+						</p:commandLink>
+						<p:dataGrid columns="5" rows="5" var="tag"
+							value="#{journalController.wochentage}" id="gridData">
+							<f:facet name="header">
+								<h:outputText value="Week " />
+								<h:outputText value="#{journalController.woche}">
+									<f:convertDateTime pattern="w, MMMM yyyy" />
+								</h:outputText>
+							</f:facet>
+
+
+
+							<p:dataTable var="buchung" value="#{tag.buchungen}" id="journale">
+
+								<f:facet name="header">
+									<h:outputText value="#{tag.datum}">
+										<f:convertDateTime pattern="E. d" />
+									</h:outputText>
+								</f:facet>
+
+								<f:facet name="footer">
+									<h:outputText value="Total " />
+									<h:outputText value="#{tag.total}">
+										<f:convertNumber maxFractionDigits="1" minFractionDigits="1" />
+									</h:outputText>
+								</f:facet>
+								<p:column style="width:20px">
+									<h:outputText id="dragIcon"
+										styleClass="ui-icon ui-icon-arrow-4" />
+									<p:draggable for="dragIcon" revert="true" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{buchung.stunden}" />
+								</p:column>
+								<p:column>
+									<h:outputText value="#{buchung.task.name}" />
+								</p:column>
+							</p:dataTable>
+
+
+						</p:dataGrid>
+
+						<p:commandLink id="neachsteWoche"
+							actionListener="#{journalController.naechsteWoche}"
+							styleClass="naechsteWoche" update="journal-woche"
+							immediate="true">
+
+						</p:commandLink>
+
+					</h:panelGrid>
+					<p:fieldset id="selectedRow" legend="Selected Row"
+						style="margin-top:20px">
+						<p:outputPanel id="dropArea">
+							<h:outputText value="!!!Drop here!!!"
+								rendered="#{empty journalController.droppedJournals}"
+								style="font-size:24px;" />
+							<p:dataTable id="selectedCarsTable" var="journal"
+								value="#{journalController.droppedJournals}"
+								rendered="#{not empty journalController.droppedJournals}">
+
+
+
+								<h:outputText value="#{journal.nr}" id="korrektur-nr" />
+
+								<p:calendar value="#{journal.datum}" id="korrektur-datum"
+									required="true" requiredMessage="Bitte Datum angeben!" />
+
+								<p:inputText value="#{journal.stunden}" id="korrektur-stunden"
+									required="true" requiredMessage="Bitte Stunden angeben!">
+									<f:convertNumber maxFractionDigits="1" />
+								</p:inputText>
+
+
+
+
+								<p:inputText value="#{journal.bemerkung}"
+									id="korrektur-bemerkung" />
+
+								<p:commandButton value="save" id="korrektur-save" ajax="true"
+									icon="ui-icon-disk" />
+
+
+
+
+							</p:dataTable>
+						</p:outputPanel>
+					</p:fieldset>
+
+
+
+				</p:outputPanel>
+
+			</h:panelGroup>
+			<p:droppable for="selectedRow" tolerance="touch"
+				activeStyleClass="ui-state-highlight"
+				datasource="form:gridData:journale" onDrop="handleDrop"
+				id="droppable">
+				<p:ajax listener="#{journalController.onJournalDrop}" />
+			</p:droppable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

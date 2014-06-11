@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head>
+	<title>Zeiterfassung</title>
+
+	<h:outputStylesheet library="css" name="fonts.css" />
+
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputStylesheet library="css" name="screen.css" />
+
+
+
+</h:head>
+<body>
+	<script type="text/javascript">
+    function handleDrop(event, ui) {
+        var journal = ui.draggable;
+ 
+        journal.fadeOut('fast');
+    }
+</script>
+	<h:form id="growlForm">
+		<p:growl id="messages" showDetail="true" sticky="true" />
+
+		<p:idleMonitor timeout="5000">
+			<p:ajax event="idle" listener="#{idleMonitorView.onIdle}"
+				update="messages" />
+			<p:ajax event="active" listener="#{idleMonitorView.onActive}"
+				update="messages" />
+		</p:idleMonitor>
+	</h:form>
+
+	<div id="page" class="container">
+		<div id="header">
+			<div id="logo">
+				<h:graphicImage library="images" name="uhr.gif"
+					style="width:80%; height:auto"></h:graphicImage>
+				<h1>
+					<a href="#">Zeiterfassung</a>
+				</h1>
+				<span>Design by Banana</span><br />
+				<p:outputLabel value="#{benutzerController.benutzername}" rendered="#{benutzerController.online}" style="color:white;"></p:outputLabel>
+			</div>
+			<ui:insert name="cph_menu">
+				<div id="menu">
+					<ul>
+						<li class="current_page_item"><h:outputLink
+								value="index.xhtml">Home</h:outputLink></li>
+						<li><h:outputLink value="journal.xhtml"
+								rendered="#{benutzerController.online}">Übersicht</h:outputLink></li>
+						<li><h:outputLink value="korrektur.xhtml"
+								rendered="#{benutzerController.online}">Korrektur</h:outputLink></li>
+						<li><h:outputLink value="task.xhtml"
+								rendered="#{benutzerController.online}">Task</h:outputLink></li>
+						<li><h:outputLink value="verbuchen.xhtml" accesskey="5"
+								rendered="#{benutzerController.online}">Verbuchen</h:outputLink></li>
+						<li><h:outputLink value="auswertung.xhtml" accesskey="5"
+								rendered="#{benutzerController.online}">Auswertung</h:outputLink></li>
+					</ul>
+				</div>
+			</ui:insert>
+		</div>
+		<div id="main">
+			<div id="banner">
+				<h:graphicImage library="images" name="bg.jpg"
+					style="width:auto; height:100px"></h:graphicImage>
+			</div>
+
+			<div id="featured">
+				<ui:insert name="cph_content">
+					<div class="title"></div>
+					<div></div>
+				</ui:insert>
+
+			</div>
+			<div id="copyright">
+				<span>Copyright (c) 2013 ZeiterfassungRemy.ch | All rights
+					reserved. | Banana </span>
+			</div>
+		</div>
+	</div>
+	<p:dialog header="Login" widgetVar="dlg1" modal="true" height="300"
+		width="500" resizable="false" hideEffect="size">
+		<h:form id="loginForm" rendered="#{!benutzerController.online}">
+			<h:panelGroup id="login">
+				<p:messages id="messages" closable="true" />
+				<p:outputLabel value="Benutzername:" />
+				<p:inputText value="#{benutzerController.benutzername}" id="input"
+					required="true" requiredMessage="Bitte Benutzername eingeben!"
+					styleClass="form-control" />
+				<br />
+				<p:outputLabel value="Passwort:" />
+				<p:password id="pwinput" value="#{benutzerController.passwort}"
+					required="true" requiredMessage="Bitte Passwort eingeben!"
+					styleClass="form-control" />
+				<br />
+				<p:commandButton value="login"
+					action="#{benutzerController.login}" 
+					id="withIcon" icon="ui-icon-check" update="messages" />
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+	<p:dialog header="Registrieren" widgetVar="dlg2" modal="true"
+		height="300" width="500" resizable="false" hideEffect="size">
+
+		<h:form id="registerForm">
+			<p:messages id="messages2" closable="true" />
+			<p:outputLabel value="Vorname:" />
+			<p:inputText value="#{benutzerController.vorname}"
+				styleClass="form-control" />
+			<br />
+			<p:outputLabel value="Nachname:" />
+			<p:inputText value="#{benutzerController.nachname}"
+				styleClass="form-control" />
+			<br />
+			<p:outputLabel value="E-Mail:" />
+			<p:inputText value="#{benutzerController.email}"
+				styleClass="form-control" />
+			<br />
+			<p:outputLabel value="Benutzername:" />
+			<p:inputText value="#{benutzerController.benutzername}"
+				styleClass="form-control" />
+			<br />
+			<p:outputLabel value="Passwort:" />
+			<p:password value="#{benutzerController.passwort}"
+				styleClass="form-control" feedback="true" inline="true" />
+			<br />
+
+
+
+			<p:commandButton id="register" 
+				action="#{benutzerController.register()}" value="register"
+				icon="ui-icon-check" update="messages2" />
+		</h:form>
+	</p:dialog>
+	<h:form>
+		<p:dock position="bottom">
+			<p:menuitem value="Home" icon="../resources/gfx/home.png"
+				url="index.xhtml" />
+			<p:menuitem value="Logout" icon="../resources/gfx/logout.png"
+				action="#{benutzerController.logoff()}" ajax="true"
+				rendered="#{benutzerController.online}" />
+			<p:menuitem value="Register" icon="../resources/gfx/sign-up.png"
+				onclick="PF('dlg2').show();"></p:menuitem>
+			<p:menuitem value="Login" icon="../resources/gfx/Login.png"
+				onclick="PF('dlg1').show();"></p:menuitem>
+
+		</p:dock>
+	</h:form>
+</body>
+</html>
+
+

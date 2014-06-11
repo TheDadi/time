@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/template2.xhtml"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="cph_menu">
+
+		<div id="menu">
+			<ul>
+				<li><h:outputLink value="index.xhtml">Home</h:outputLink></li>
+				<li><h:outputLink value="journal.xhtml">Übersicht</h:outputLink></li>
+				<li><a href="korrektur.xhtml" accesskey="3" title="">Korrektur</a></li>
+				<li><a href="task.xhtml" accesskey="4" title="">Task</a></li>
+				<li><h:outputLink value="verbuchen.xhtml" accesskey="5">Verbuchen</h:outputLink></li>
+				<li class="current_page_item"><a href="auswertung.xhtml"
+					accesskey="6" title="">Auswertung</a></li>
+			</ul>
+		</div>
+
+
+	</ui:define>
+	<ui:define name="cph_content">
+		<h:form>
+			<p:outputPanel id="auswertung">
+
+				<p:panel headerClass="auswertungTitel">
+
+					<f:facet name="header">
+
+						<h:commandLink
+							action="#{auswertungPagingController.letzterMonat()}"
+							immediate="true" render=":auswertung" styleClass="letzterMonat">
+							<h:graphicImage name="gfx/arrow_left_small.png" />
+						</h:commandLink>
+						<h:outputText value="#{auswertungPagingController.monat}">
+							<f:convertDateTime pattern="MMMM yyyy" />
+						</h:outputText>
+						<h:commandLink
+							action="#{auswertungPagingController.naechsterMonat()}"
+							render=":auswertung" styleClass="naechsterMonat">
+							<h:graphicImage name="gfx/arrow_right_small.png" />
+						</h:commandLink>
+
+					</f:facet>
+
+					<h:panelGrid columns="2" styleClass="diagrammTable">
+
+						<p:panel style="min-height:100%;">
+							<f:facet name="header">
+						Verbuchung
+							</f:facet>
+
+							<p:chart type="pie"
+								model="#{auswertungController.verbuchbarChart}" />
+
+
+
+						</p:panel>
+
+						<p:panel style="min-height:100%;">
+							<f:facet name="header">
+						Buchart
+							</f:facet>
+							<p:chart type="pie" model="#{auswertungController.buchartChart}" />
+						</p:panel>
+
+					</h:panelGrid>
+
+				</p:panel>
+
+			</p:outputPanel>
+		</h:form>
+		<p:dataTable var="buchung" rendered="#{not empty auswertungController.nichtVerbuchbar}"
+						value="#{auswertungController.nichtVerbuchbar}" scrollable="true" scrollHeight="150">
+			<f:facet name="header">
+							Nicht verbuchbar
+						</f:facet>
+
+			<p:column>
+				<h:outputText value="#{buchung.datum}" />
+			</p:column>
+
+			<p:column>
+				<h:outputText value="#{buchung.stunden}" />
+			</p:column>
+
+			<p:column>
+				<h:outputText value="#{buchung.task.name}" />
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>

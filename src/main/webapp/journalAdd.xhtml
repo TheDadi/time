@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+		<p:messages id="messages" closable="true" />
+
+		<h:panelGrid columns="5" class="journalHinzufuegen">
+
+			<f:facet name="header">
+					Hinzufuegen
+				</f:facet>
+
+			<h:outputLabel value="Datum" for="popupCal" />
+			<h:outputLabel value="Stunden" for="stunden" />
+			<h:outputLabel value="Task" for="task" />
+			<h:outputLabel value="Bemerkung" for="bemerkung" />
+			<h:panelGroup />
+
+
+			<p:calendar value="#{journalAddController.datum}"
+				id="popupCal" required="true" requiredMessage="Bitte Datum angeben!" />
+
+			<p:inputText value="#{journalAddController.stunden}" id="stunden"
+				required="true" requiredMessage="Bitte Stunden angeben!"
+				style="margin-left:0px;">
+				<f:convertNumber maxFractionDigits="1" />
+			</p:inputText>
+			<p:selectOneMenu value="#{journalAddController.task}" id="task"
+				required="true" requiredMessage="Waehle einen Task" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItems value="#{journalAddController.tasks}" var="task"
+					itemLabel="#{task.name}" itemValue="#{task.name}" />
+			</p:selectOneMenu>
+			<p:inputText value="#{journalAddController.bemerkung}"
+				id="bemerkung" />
+			<p:commandButton value="save" type="submit"
+				actionListener="#{journalAddController.save}" id="withIcon"
+				update="journal" icon="ui-icon-disk" ajax="true"
+				action="#{journalAddController.save}" />
+
+		</h:panelGrid>
+
+
+</ui:composition>

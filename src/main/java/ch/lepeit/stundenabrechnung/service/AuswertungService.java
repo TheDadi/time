@@ -1,0 +1,74 @@
+package ch.lepeit.stundenabrechnung.service;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
+import ch.lepeit.stundenabrechnung.model.BuchartStunden;
+import ch.lepeit.stundenabrechnung.model.Verbuchbar;
+
+/**
+ * Service, der die Daten für Auswertungen zur Verfügung stellt
+ * 
+ * @author Sven Tschui C910511
+ * 
+ */
+@Stateless
+public class AuswertungService {
+    @PersistenceContext
+    private EntityManager em;
+    @EJB
+    private LoginService loginService;
+
+    /**
+     * Berechnet, mit welchem Tool wie viel Zeit verbucht wurde.
+     * 
+     * @param monat
+     * Monat, für welchen die Auswertung erstellt werden soll.
+     * @return Liste der Bucharten und der damit verbuchten Stunden
+     */
+    public List<BuchartStunden> getBuchartProMonat(Date monat) {
+        TypedQuery<BuchartStunden> q = em
+                .createQuery(
+                        "SELECT new ch.lepeit.stundenabrechnung.model.BuchartStunden(j.task.buchart.art, SUM(j.stunden)) FROM Journal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat and j.benutzer=:benutzer GROUP BY j.task.buchart.art",
+                        BuchartStunden.class);
+
+        Calendar c = new GregorianCalendar();
+        c.setTime(monat);
+
+        q.setParameter("jahr", c.get(Calendar.YEAR));
+        q.setParameter("monat", c.get(Calendar.MONTH) + 1); // + 1 Da Calendar Monate von 0 aus zählt
+        q.setParameter("benutzer", loginService.getBenutzer());
+        return q.getResultList();
+    }
+
+    /**
+     * Berechnet die verbuchbare sowie die nicht verbuchbare Zeit, die diesen Monat aufgewendet wurde.
+     * 
+     * @param monat
+     * Monat, für welchen die Auswertung erstellt werden soll.
+     * @return Total (nicht) verbuchbare Zeit diesen Monat
+     */
+    public List<Verbuchbar> getVerbuchbar(Date monat) {
+        TypedQuery<Verbuchbar> q = em
+                .createQuery(
+                        "SELECT new ch.lepeit.stundenabrechnung.model.Verbuchbar(j.task.verbuchbar, SUM(stunden)) FROM Journal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat and j.benutzer=:benutzer GROUP BY j.task.verbuchbar",
+                        Verbuchbar.class);
+
+        Calendar c = new GregorianCalendar();
+        c.setTime(monat);
+
+        q.setParameter("jahr", c.get(Calendar.YEAR));
+        q.setParameter("monat", c.get(Calendar.MONTH) + 1); // + 1 Da Calendar Monate von 0 aus zählt
+        q.setParameter("benutzer", loginService.getBenutzer());
+
+        return q.getResultList();
+    }
+}

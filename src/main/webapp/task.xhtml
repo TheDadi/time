@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/template2.xhtml"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="cph_menu">
+
+		<div id="menu">
+			<ul>
+				<li><h:outputLink value="index.xhtml">Home</h:outputLink></li>
+				<li><h:outputLink value="journal.xhtml">Übersicht</h:outputLink></li>
+				<li><a href="korrektur.xhtml" accesskey="3" title="">Korrektur</a></li>
+				<li class="current_page_item"><a href="task.xhtml"
+					accesskey="4" title="">Task</a></li>
+				<li><h:outputLink value="verbuchen.xhtml" accesskey="5">Verbuchen</h:outputLink></li>
+				<li><a href="auswertung.xhtml" accesskey="6" title="">Auswertung</a></li>
+			</ul>
+		</div>
+
+
+	</ui:define>
+	<ui:define name="cph_content">
+
+		<h:panelGroup id="tasks">
+
+
+
+			<h:form id="form2">
+
+				<p:dataTable scrollable="true" scrollHeight="150"
+					value="#{taskController.tasks}" var="task">
+					<f:facet name="header">
+						<h:outputText value="Hinzufuegen" />
+					</f:facet>
+
+					<p:column>
+						<f:facet name="header">
+					Name
+				</f:facet>
+
+						<h:outputText value="#{task.name}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+					Verbuchbar
+				</f:facet>
+
+						<h:graphicImage name="gfx/yes.png" rendered="#{task.verbuchbar}" />
+						<h:graphicImage name="gfx/no.png" rendered="#{!task.verbuchbar}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+					Buchart
+				</f:facet>
+
+						<h:outputText value="#{task.buchart.art}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+					Plantaname
+				</f:facet>
+
+						<h:outputText value="#{task.plantaname}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+					Aktion
+				</f:facet>
+						<p:commandButton id="korrektur-loeschen"
+							actionListener="#{taskController.deleteTask(task.name)}"
+							update=":form2" ajax="true" icon="ui-icon-trash" />
+
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+			<h:form id="form">
+				<p:messages id="messages2" closable="true"/>
+				<h:panelGrid columns="5" styleClass="panelGrid">
+
+
+					<h:outputLabel for="task-name" value="Name" />
+
+					<h:outputLabel for="task-verbuchbar" value="Verbuchbar" />
+
+					<h:outputLabel for="task-buchart" value="Buchart" />
+
+					<h:outputLabel for="task-name" value="Plantaname" />
+
+					<h:outputLabel for="task-name" value="" />
+
+
+
+					<p:inputText id="task-name" value="#{taskAddController.task.name}"
+						required="true" requiredMessage="Bitte Name abgeben" />
+
+					<p:selectBooleanCheckbox id="task-verbuchbar"
+						value="#{taskAddController.task.verbuchbar}" />
+
+					<p:selectOneMenu value="#{taskAddController.buchart}"
+						id="task-buchart" required="true"
+						requiredMessage="Bitte Buchart auswaehlen!" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItems value="#{taskAddController.bucharten}"
+							var="buchart" itemLabel="#{buchart.art}"
+							itemValue="#{buchart.art}" />
+					</p:selectOneMenu>
+
+
+
+					<p:inputText id="task-planta"
+						value="#{taskAddController.task.plantaname}" />
+
+					<p:commandButton value="save" id="korrektur-save"
+						actionListener="#{taskAddController.save}" update=":form2,:form"
+						ajax="true" icon="ui-icon-disk" />
+
+				</h:panelGrid>
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,284 @@
+html,body {
+	height: 100%;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	background: #202020;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 10pt;
+	font-weight: 300;
+	color: #444444;
+}
+
+h1,h2,h3 {
+	margin: 0;
+	padding: 0;
+	font-weight: 400;
+	color: #333333;
+}
+
+p,ol,ul {
+	margin-top: 0;
+}
+
+ol,ul {
+	padding: 0;
+	list-style: none;
+}
+
+p {
+	line-height: 180%;
+}
+
+strong {
+	
+}
+
+a:FOCUS {
+	outline: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+.panelGrid{
+	text-align: left;
+
+	}
+.container {
+	overflow: hidden;
+	margin: 0em auto;
+	width: 1450px;
+}
+
+/*********************************************************************************/
+/* Image Style                                                                   */
+/*********************************************************************************/
+.image {
+	display: inline-block;
+}
+
+.image img {
+	display: block;
+	width: 100%;
+}
+
+.image-full {
+	display: block;
+	width: 100%;
+	margin: 0 0 2em 0;
+}
+
+.image-left {
+	float: left;
+	margin: 0 2em 2em 0;
+}
+
+.image-centered {
+	display: block;
+	margin: 0 0 2em 0;
+}
+
+.image-centered img {
+	margin: 0 auto;
+	width: auto;
+}
+.ui-widget-header a{
+	color:white;
+}
+
+
+
+
+
+
+
+
+
+/*********************************************************************************/
+/* Heading Titles                                                                */
+/*********************************************************************************/
+.title {
+	margin-bottom: 1em;
+}
+
+.title h2 {
+	text-transform: uppercase;
+	font-size: 2.8em;
+}
+
+.title .byline {
+	font-size: 1.3em;
+	color: #6F6F6F;
+}
+
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+#header {
+	position: relative;
+	float: left;
+	width: 150px;
+	padding: 3em 0em;
+}
+
+/*********************************************************************************/
+/* Logo                                                                          */
+/*********************************************************************************/
+#logo {
+	text-align: center;
+	margin-bottom: 4em;
+}
+
+#logo h1 {
+	display: block;
+}
+
+#logo a {
+	text-decoration: none;
+	color: #FFF;
+} 
+
+#logo span {
+	padding-right: 0.5em;
+	text-transform: uppercase;
+	font-size: 0.90em;
+	color: rgba(255, 255, 255, 0.3);
+}
+
+
+#logo span a {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+#logo img {
+	display: inline-block;
+	margin-bottom: 1em;
+	border-radius: 50%;
+}
+
+/*********************************************************************************/
+/* Menu                                                                          */
+/*********************************************************************************/
+#menu {
+	
+}
+
+#menu ul {
+	
+}
+
+#menu li {
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#menu li a,#menu li span {
+	display: block;
+	padding: 2em 1.5em;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 12px;
+
+	font-weight: 700;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+#menu li:hover a,#menu li.active a,#menu li.active span {
+	
+}
+
+#menu .current_page_item a {
+	background: #2980b9;
+	color: rgba(255, 255, 255, 1);
+}
+
+#menu .icon {
+	
+}
+
+/*********************************************************************************/
+/* Banner                                                                        */
+/*********************************************************************************/
+#banner {
+	margin-bottom: 4em;
+}
+
+/*********************************************************************************/
+/* Page                                                                          */
+/*********************************************************************************/
+#page {
+	background: #2a2a2a;
+}
+
+/*********************************************************************************/
+/* Main                                                                          */
+/*********************************************************************************/
+#main {
+	overflow: hidden;
+	float: right;
+	width: 1200px;
+	padding: 3em 50px 5em 50px;
+	background: #FFF;
+	border-top: 6px solid #2980b9;
+	text-align: center;
+}
+
+/*********************************************************************************/
+/* Featured                                                                      */
+/*********************************************************************************/
+#featured {
+	overflow: hidden;
+	margin-bottom: 3em;
+	padding-top: 1em;
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+	min-height: 25em;
+}
+
+
+/*********************************************************************************/
+/* Sidebar                                                                       */
+/*********************************************************************************/
+#sidebar {
+	
+}
+
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+#footer {
+	font-size:15pt;
+	font-weight: 700;
+}
+
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
+#copyright {
+	overflow: hidden;
+	padding-top: 3em;
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+#copyright span {
+	display: block;
+	letter-spacing: 0.20em;
+	line-height: 2.5em;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 0.80em;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+#copyright a {
+	text-decoration: none;
+	color: rgba(0, 0, 0, 0.9);
+}
+
+.fa {
+	display: block;
+	color: #000;
+	background: red;
+}

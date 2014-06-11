@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/template2.xhtml"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="cph_menu">
+
+		<div id="menu">
+			<ul>
+				<li><h:outputLink value="index.xhtml">Home</h:outputLink></li>
+				<li><h:outputLink value="journal.xhtml">Übersicht</h:outputLink></li>
+				<li><a href="korrektur.xhtml" accesskey="3" title="">Korrektur</a></li>
+				<li><a href="task.xhtml" accesskey="4" title="">Task</a></li>
+				<li class="current_page_item"><h:outputLink
+						value="verbuchen.xhtml" accesskey="5">Verbuchen</h:outputLink></li>
+				<li><a href="auswertung.xhtml" accesskey="6" title="">Auswertung</a></li>
+			</ul>
+		</div>
+
+
+	</ui:define>
+	<ui:define name="cph_content">
+		<h:form id="form">
+			<p:outputPanel id="verbuchen">
+
+				<p:dataTable scrollable="true" scrollHeight="150"
+					id="verbuchen-table" value="#{verbuchenController.buchungen}"
+					var="journal">
+
+					<p:column>
+						<f:facet name="header">
+					Datum
+				</f:facet>
+						<h:outputText value="#{journal.datum}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+						Stunden
+				</f:facet>
+						<h:outputText value="#{journal.stunden}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+					Task
+				</f:facet>
+						<h:outputText value="#{journal.task.name}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+					Plantaname
+				</f:facet>
+						<h:outputText value="#{journal.task.plantaname}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+					Verbucht
+											<p:commandButton id="refresh" ajax="true"
+								actionListener="#{verbuchenController.reload}"
+								icon="ui-icon ui-icon-arrowrefresh-1-e" update=":form:verbuchen"
+								style="float:right;" />
+						</f:facet>
+						<p:commandLink
+							actionListener="#{verbuchenController.verbuchen(journal)}"
+							update=":form:verbuchen">
+							<p:selectBooleanCheckbox id="task-verbuchbar"
+								value="#{journal.plantaverbucht}" />
+						</p:commandLink>
+
+
+					</p:column>
+					<f:facet name="header">
+						<h:outputText value="Verbuchen" />
+
+					</f:facet>
+
+
+
+				</p:dataTable>
+
+
+
+
+
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

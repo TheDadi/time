@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:messages id="messages2"  closable="true"/>
+
+	<h:panelGrid columns="7"
+		rendered="#{not empty korrekturEditController.journal}"
+		styleClass="panelGrid">
+
+
+		<h:outputLabel value="Nr" for="korrektur-nr" />
+		<h:outputLabel value="Datum" for="korrektur-datum" />
+		<h:outputLabel value="Stunden" for="korrektur-stunden" />
+		<h:outputLabel value="Task" for="korrektur-task" />
+		<h:outputLabel value="Bemerkung" for="korrektur-bemerkung" />
+		<h:outputLabel value="Save?" for="korrektur-save" />
+		<h:outputLabel value="Löschen?" for="korrektur-loeschen" />
+
+		<h:outputText value="#{korrekturEditController.journal.nr}"
+			id="korrektur-nr" />
+
+		<p:calendar value="#{korrekturEditController.journal.datum}"
+			id="korrektur-datum" required="true"
+			requiredMessage="Bitte Datum angeben!" />
+
+		<p:inputText value="#{korrekturEditController.journal.stunden}"
+			id="korrektur-stunden" required="true"
+			requiredMessage="Bitte Stunden angeben!">
+			<f:convertNumber maxFractionDigits="1" />
+		</p:inputText>
+
+		<p:selectOneMenu value="#{korrekturEditController.task}"
+			id="korrektur-task" required="true"
+			requiredMessage="Waehle einen Task" filter="true"
+			filterMatchMode="startsWith">
+			<f:selectItems value="#{korrekturEditController.tasks}" var="task"
+				itemLabel="#{task.name}" itemValue="#{task.name}" />
+		</p:selectOneMenu>
+
+
+		<p:inputText value="#{korrekturEditController.journal.bemerkung}"
+			id="korrektur-bemerkung" />
+
+		<p:commandButton value="save" id="korrektur-save"
+			actionListener="#{korrekturEditController.save}"
+			update=":form:korrektur" ajax="true" icon="ui-icon-disk" />
+
+		<p:commandButton value="löschen" id="korrektur-loeschen"
+			actionListener="#{korrekturEditController.remove}"
+			update=":form:korrektur" ajax="true" icon="ui-icon-trash" />
+
+
+	</h:panelGrid>
+
+</ui:composition>

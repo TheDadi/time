@@ -1,0 +1,140 @@
+body {
+	margin: 0;
+	padding: 0;
+	/*font-family: Verdana, sans-serif;*/
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+.journalHinzufuegen {
+	margin: 0 auto;
+}
+
+.journalEditieren {
+	margin: 0 auto;
+}
+
+.journalWochen {
+	width: 100%;
+}
+
+.journalGrid {
+	width: 100%;
+	margin: 0 30px;
+}
+
+.journalGrid table {
+	width: 100%;
+}
+
+.journalGrid tbody {
+	vertical-align: top;
+}
+
+.letzteWoche,.naechsteWoche {
+	width: 64px;
+	height: 64px;
+	background: #ff0000;
+}
+
+.letzteWoche {
+	background: url(../resources/gfx/for.png);
+	background-size: 64px 64px;
+	background-repeat: no-repeat;
+	float: left;
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+}
+
+.naechsteWoche {
+	background: url(../resources/gfx/for.png);
+	background-size: 64px 64px;
+	background-repeat: no-repeat;
+	float: right;
+}
+
+.info,.success,.warning,.error {
+	border: 1px solid;
+	margin: 10px 0px;
+	padding: 15px 10px 15px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	list-style: none;
+	font-weight: bold;
+}
+
+.info {
+	color: #00529B;
+	background-color: #BDE5F8;
+	background-image: url(../resources/gfx/info.png);
+}
+
+.success {
+	color: #4F8A10;
+	background-color: #DFF2BF;
+	background-image: url(../resources/gfx/success.png);
+}
+
+.warning {
+	color: #9F6000;
+	background-color: #FEEFB3;
+	background-image: url(../resources/gfx/warning.png);
+}
+
+.error {
+	color: #D8000C;
+	background-color: #FFBABA;
+	background-image: url(../resources/gfx/error.png);
+}
+
+.korrekturBtnContainer {
+	text-align: center;
+}
+
+.auswertungTitel {
+	text-align: center;
+}
+
+.auswertungTitel .letzterMonat {
+	
+}
+
+.auswertungTitel .naechsterMonat {
+	
+}
+
+.popup-close {
+	float: right;
+}
+
+.diagrammTable {
+	width: 100%;
+}
+
+.diagrammTable td {
+	vertical-align: top;
+}
+
+.rf-sel-cntr {
+	vertical-align: top;
+}
+
+#table tr {
+	height: 100%;
+	
+}
+#copyright {
+	font-size:14px;
+	font-weight: 700;
+}
+.panelGrid{
+	text-align: left;
+	font-size: 12px;
+}
+.ui-widget{
+		font-size: 12px;
+}
+.form-control{
+	width: 100%;
+}
