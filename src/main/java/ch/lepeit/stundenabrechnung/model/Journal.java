@@ -26,7 +26,7 @@ public class Journal implements Serializable {
 	private String bemerkung;
  
 	@Temporal(TemporalType.DATE)
-	private Date datum = new Date();
+	private Date datum;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,11 +72,9 @@ public class Journal implements Serializable {
 		return this.nr;
 	}
 	
-	public int getPlantaverbucht() {
-		return this.plantaverbucht;
-	}
 
-	public boolean getPlantaverbucht2() {
+
+	public boolean getPlantaverbucht() {
 		if (this.plantaverbucht == 0)
 			return false;
 		else
