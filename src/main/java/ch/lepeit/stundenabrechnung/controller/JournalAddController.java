@@ -77,6 +77,7 @@ public class JournalAddController implements Serializable {
 	public void init() {
 		// Leeres Journal für das Hinzufpgen-Formular
 		this.journal = new Journal();
+		journal.setDatum(new Date());
 
 		this.tasks = this.taskService.getTasks();
 	}

@@ -138,18 +138,9 @@ public class JournalService {
      
      */
 	public void save(Journal j) {
-    	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "save_merge", "save_merge"));
-        try{
+    
     	em.persist(j);
     	
-    	System.out.println();
-        }catch(RuntimeException e)
-        {
-        	
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e.getLocalizedMessage(), e.getMessage()));
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), e.getMessage()));
-        	throw e; 
-        }
         
     }
 
