@@ -25,14 +25,6 @@ public class GroupedJournal implements Serializable {
 	public GroupedJournal() {
 	}
 
-	public GroupedJournal(Date datum, Double stunden, Task task,
-			boolean plantaverbucht) {
-		super();
-		this.datum = datum;
-		this.stunden = stunden;
-		this.task = task;
-		this.setPlantaverbucht(plantaverbucht);
-	}
 
 	public GroupedJournal(Date datum, Double stunden, Task task,
 			int plantaverbucht) {
