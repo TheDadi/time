@@ -66,6 +66,7 @@ public class BenutzerController {
     public String logoff(){
         loginService.setBenutzer(null);
         online = false;
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "logout.xhtml";
     }
     
