@@ -120,9 +120,7 @@
                     </security>
                     <validation>
                         <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
-                        <background-validation>true</background-validation>
-                        <background-validation-millis>60000</background-validation-millis>
-                        <!--<validate-on-match>true</validate-on-match>-->
+                    
                     </validation>
                     <pool>
 						<flush-strategy>IdleConnections</flush-strategy>
