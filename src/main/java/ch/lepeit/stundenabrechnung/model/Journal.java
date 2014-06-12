@@ -71,13 +71,18 @@ public class Journal implements Serializable {
 	public int getNr() {
 		return this.nr;
 	}
+	
+	public int getPlantaverbucht() {
+		return this.plantaverbucht;
+	}
 
-	public boolean getPlantaverbucht() {
+	public boolean getPlantaverbucht2() {
 		if (this.plantaverbucht == 0)
 			return false;
 		else
 			return true;
 	}
+	
 
 	public Double getStunden() {
 		return this.stunden;
