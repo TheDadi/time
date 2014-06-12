@@ -24,8 +24,8 @@ import java.io.Serializable;
 /**
  * ViewController für das Hinzufügen eines Journaleintrages (journalAdd.xhtml)
  * 
- * Stellt eine Funktion zum speichern/erfassen eines Journaleintrages bereit. Es wird eine Liste aller Tasks für das
- * DropDown bereitgestellt.
+ * Stellt eine Funktion zum speichern/erfassen eines Journaleintrages bereit. Es
+ * wird eine Liste aller Tasks für das DropDown bereitgestellt.
  * 
  * @author Sven Tschui C910511
  * 
@@ -33,165 +33,79 @@ import java.io.Serializable;
 @Named
 @RequestScoped
 public class JournalAddController implements Serializable {
-    
 
 	private static final long serialVersionUID = 7688372061609665368L;
-	
-	private String bemerkung;
 
-	private Date datum;
-
-
-	private int plantaverbucht;
-
-	private Double stunden;
-	
 	private Task task;
-
-
-
-
 
 	public void setTask(Task task) {
 	}
 
-
-	private Benutzer benutzer;
-
 	private Journal journal;
 
-    @Inject
-    private JournalController journalController;
-
-    
-    @EJB
-    private LoginService loginService;
-    
-    public Double getStunden() {
-		return stunden;
-	}
-
-
-	public void setStunden(Double stunden) {
-		this.stunden = stunden;
-	}
-
+	@Inject
+	private JournalController journalController;
 
 	@EJB
-    private JournalService journalService;
+	private LoginService loginService;
 
-    private List<Task> tasks;
+	@EJB
+	private JournalService journalService;
 
-    @EJB
-    private TaskService taskService;
+	private List<Task> tasks;
 
-    public Journal getJournal() {
-        return journal;
-    }
-    
+	@EJB
+	private TaskService taskService;
 
-    public String getTask() {
-        if (this.journal == null || this.journal.getTask() == null) {
-            return null;
-        }
+	public Journal getJournal() {
+		return journal;
+	}
 
-        return task.getName();
-    }
+	public String getTask() {
+		if (this.journal == null || this.journal.getTask() == null) {
+			return null;
+		}
 
-    public List<Task> getTasks() {
-        return this.tasks;
-    }
+		return task.getName();
+	}
 
-    @PostConstruct
-    public void init() {
-        // Leeres Journal für das Hinzufpgen-Formular
-        this.journal = new Journal();
+	public List<Task> getTasks() {
+		return this.tasks;
+	}
 
-        this.tasks = this.taskService.getTasks();
-    }
+	@PostConstruct
+	public void init() {
+		// Leeres Journal für das Hinzufpgen-Formular
+		this.journal = new Journal();
 
-    public String save() {
-    	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "save", "save"));
-        // Journal speichern
-    	
-    	Journal journal = new Journal();
-    	journal.setBenutzer(loginService.getBenutzer());
-  
-  
-    	journal.setBemerkung(bemerkung);
-    	journal.setDatum(datum);
-    	journal.setStunden(stunden);
-    	journal.setTask(task);
-    	
-        journalService.save(journal);
+		this.tasks = this.taskService.getTasks();
+	}
 
-        // Neues leeres Journal
-        this.journal = new Journal();
-        bemerkung= "";
-        datum = new Date();
-        stunden = null;
-        task = new Task();
+	public String save() {
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "save", "save"));
+		// Journal speichern
+		this.journal.setBenutzer(loginService.getBenutzer());
+		this.journal.setPlantaverbucht(0);
+		journalService.save(journal);
 
-        
-        // Daten der Wochenübersicht neu laden
-        this.journalController.reload();
-       
-        
-        
+		// Neues leeres Journal
+		this.journal = new Journal();
 
-        return null;
-    }
+		// Daten der Wochenübersicht neu laden
+		this.journalController.reload();
 
-  
-    public void setTask(String task) {
-    	this.task = this.taskService.getTask(task);
-    	
-        this.journal.setTask(this.taskService.getTask(task));
-    }
+		return null;
+	}
 
+	public void setTask(String task) {
+		this.task = this.taskService.getTask(task);
+
+		this.journal.setTask(this.taskService.getTask(task));
+	}
 
 	public void setJournal(Journal journal) {
 		this.journal = journal;
 	}
-	public Date getDatum() {
-		return datum;
-	}
 
-
-	public void setDatum(Date datum) {
-		this.datum = datum;
-	}
-
-
-	public int getPlantaverbucht() {
-		return plantaverbucht;
-	}
-
-
-	public void setPlantaverbucht(int plantaverbucht) {
-		this.plantaverbucht = plantaverbucht;
-	}
-
-
-	public Benutzer getBenutzer() {
-		return benutzer;
-	}
-
-
-	public void setBenutzer(Benutzer benutzer) {
-		this.benutzer = benutzer;
-	}
-
-
-
-
-	public String getBemerkung() {
-		return bemerkung;
-	}
-
-
-	public void setBemerkung(String bemerkung) {
-		this.bemerkung = bemerkung;
-	}
-    
 }

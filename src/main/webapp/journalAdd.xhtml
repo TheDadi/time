@@ -21,10 +21,10 @@
 			<h:panelGroup />
 
 
-			<p:calendar value="#{journalAddController.datum}"
+			<p:calendar value="#{journalAddController.journal.datum}"
 				id="popupCal" required="true" requiredMessage="Bitte Datum angeben!" />
 
-			<p:inputText value="#{journalAddController.stunden}" id="stunden"
+			<p:inputText value="#{journalAddController.journal.stunden}" id="stunden"
 				required="true" requiredMessage="Bitte Stunden angeben!"
 				style="margin-left:0px;">
 				<f:convertNumber maxFractionDigits="1" />
@@ -35,7 +35,7 @@
 				<f:selectItems value="#{journalAddController.tasks}" var="task"
 					itemLabel="#{task.name}" itemValue="#{task.name}" />
 			</p:selectOneMenu>
-			<p:inputText value="#{journalAddController.bemerkung}"
+			<p:inputText value="#{journalAddController.journal.bemerkung}"
 				id="bemerkung" />
 			<p:commandButton value="save" type="submit"
 				actionListener="#{journalAddController.save}" id="withIcon"
