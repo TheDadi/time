@@ -40,7 +40,15 @@ public class Task implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int task_id; 
     
-    private String name;
+    public int getTask_id() {
+		return task_id;
+	}
+
+	public void setTask_id(int task_id) {
+		this.task_id = task_id;
+	}
+
+	private String name;
 
     private String plantaname;
 
@@ -57,7 +65,7 @@ public class Task implements Serializable {
 
         Task t = (Task) o;
 
-        return this.name.equals(t.getName());
+        return (this.task_id ==  t.task_id);
     }
 
     public Buchart getBuchart() {
@@ -107,12 +115,5 @@ public class Task implements Serializable {
 		this.benutzer = benutzer;
 	}
 
-	public int getId() {
-		return task_id;
-	}
-
-	public void setId(int id) {
-		this.task_id = id;
-	}
 
 }
