@@ -148,7 +148,11 @@ public class JournalService {
      * Der zu speichernde Journaleintrag
      */
     public void update(Journal j) {
-        em.merge(j);
+    	try{
+        em.merge(j);}catch(Exception e )
+        {
+        	System.out.println(e.getMessage());
+        }
     }
 
     /**
