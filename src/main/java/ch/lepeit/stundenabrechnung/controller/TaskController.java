@@ -16,8 +16,8 @@ public class TaskController {
     @EJB
     private TaskService taskService;
 
-    public void deleteTask(String name) {
-        this.taskService.delete(name);
+    public void deleteTask(int id) {
+        this.taskService.delete(id);
     }
 
     public List<Task> getTasks() {

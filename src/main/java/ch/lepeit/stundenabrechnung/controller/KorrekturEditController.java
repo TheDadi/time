@@ -83,7 +83,7 @@ public class KorrekturEditController implements Serializable, Observer {
 		return null;
     }
 
-    public void setTask(String task) {
+    public void setTask(int task) {
         this.journal.setTask(taskService.getTask(task));
     }
 

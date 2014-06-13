@@ -33,7 +33,7 @@
 				required="true" requiredMessage="Waehle einen Task" filter="true"
 				filterMatchMode="startsWith">
 				<f:selectItems value="#{journalAddController.tasks}" var="task"
-					itemLabel="#{task.name}" itemValue="#{task.name}" />
+					itemLabel="#{task.name}" itemValue="#{task.task_id}" />
 			</p:selectOneMenu>
 			<p:inputText value="#{journalAddController.journal.bemerkung}"
 				id="bemerkung" />

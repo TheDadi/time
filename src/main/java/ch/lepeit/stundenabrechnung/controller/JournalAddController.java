@@ -99,10 +99,10 @@ public class JournalAddController implements Serializable {
 		return null;
 	}
 
-	public void setTask(String task) {
+	public void setTask(int task) {
 		this.task = this.taskService.getTask(task);
 
-		this.journal.setTask(this.taskService.getTask(task));
+		this.journal.setTask(this.task);
 	}
 
 	public void setJournal(Journal journal) {

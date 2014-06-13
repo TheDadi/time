@@ -29,9 +29,9 @@ public class TaskService {
      * @param name
      * Der Name des zu löschenden Task
      */
-    public void delete(String name) {
-        em.remove(em.createQuery("Select t From task where t.name =:name and t.benutzer = :benutzer",Task.class).setParameter("name", name).setParameter("benutzer", loginService.getBenutzer()).getSingleResult());
-//        em.remove(em.find(Task.class, name));
+    public void delete(int id ) {
+//        em.remove(em.createQuery("Select t From task where t.name =:name and t.benutzer = :benutzer",Task.class).setParameter("name", name).setParameter("benutzer", loginService.getBenutzer()).getSingleResult());
+        em.remove(em.find(Task.class, id));
     }
 
     /**
@@ -41,9 +41,9 @@ public class TaskService {
      * Name des Tasks
      * @return Gefundener Task oder null
      */
-    public Task getTask(String name) {
-//        return em.find(Task.class, (name+loginService.getBenutzer()));
-    	return em.createQuery("Select t From task where t.name =:name and t.benutzer = :benutzer",Task.class).setParameter("name", name).setParameter("benutzer", loginService.getBenutzer()).getSingleResult();
+    public Task getTask(int id) {
+        return em.find(Task.class, id);
+//    	return em.createQuery("Select t From task where t.name =:name and t.benutzer = :benutzer",Task.class).setParameter("name", name).setParameter("benutzer", loginService.getBenutzer()).getSingleResult();
     }
 
     /**
