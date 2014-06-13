@@ -35,6 +35,8 @@ public class Task implements Serializable {
   	private Benutzer benutzer;
 
     @Id
+    private int task_id; 
+    
     private String name;
 
     private String plantaname;
@@ -100,6 +102,14 @@ public class Task implements Serializable {
 
 	public void setBenutzer(Benutzer benutzer) {
 		this.benutzer = benutzer;
+	}
+
+	public int getId() {
+		return task_id;
+	}
+
+	public void setId(int id) {
+		this.task_id = id;
 	}
 
 }
