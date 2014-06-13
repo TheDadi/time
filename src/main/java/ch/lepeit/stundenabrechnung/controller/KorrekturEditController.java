@@ -52,12 +52,12 @@ public class KorrekturEditController implements Serializable, Observer {
 		this.journal = journal;
 	}
     
-    public String getTask() {
+    public Integer getTask() {
         if (journal == null || journal.getTask() == null) {
             return null;
         }
 
-        return journal.getTask().getName();
+        return journal.getTask().getTask_id();
     }
 
     public List<Task> getTasks() {

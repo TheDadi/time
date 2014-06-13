@@ -42,6 +42,7 @@ public class TaskService {
      * @return Gefundener Task oder null
      */
     public Task getTask(int id) {
+    	System.out.println("dada"+id);
         return em.find(Task.class, id);
 //    	return em.createQuery("Select t From task where t.name =:name and t.benutzer = :benutzer",Task.class).setParameter("name", name).setParameter("benutzer", loginService.getBenutzer()).getSingleResult();
     }
