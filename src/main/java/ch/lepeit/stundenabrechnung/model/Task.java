@@ -39,7 +39,7 @@ public class Task implements Serializable {
 
     private String plantaname;
 
-    private int verbuchbar;
+    private boolean verbuchbar;
 
     public Task() {
     }
@@ -72,10 +72,7 @@ public class Task implements Serializable {
     }
 
     public boolean getVerbuchbar() {
-        if(this.verbuchbar == 0)
-      	   return false;
-         else
-      	   return true;
+    	return this.verbuchbar;
     }
 
     public void setBuchart(Buchart buchart) {
@@ -95,10 +92,7 @@ public class Task implements Serializable {
     }
 
     public void setVerbuchbar(boolean verbuchbar) {
-    	if(verbuchbar)
-    		this.verbuchbar = 1;
-    	else
-			this.verbuchbar = 0;
+    	this.verbuchbar = verbuchbar;
     }
 	public Benutzer getBenutzer() {
 		return this.benutzer;
