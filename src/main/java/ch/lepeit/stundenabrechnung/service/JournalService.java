@@ -99,7 +99,7 @@ public class JournalService {
     public List<GroupedJournal> getNichtVerbuchbarGroupedJournals(Date monat) {
         TypedQuery<GroupedJournal> journals = em
                 .createQuery(
-                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task) FROM Journal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = 0 and j.benutzer=:benutzer GROUP BY j.datum, j.task ORDER BY j.datum ASC",
+                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task) FROM Journal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = FALSE and j.benutzer=:benutzer GROUP BY j.datum, j.task ORDER BY j.datum ASC",
                         GroupedJournal.class);
 
         Calendar c = new GregorianCalendar();
@@ -120,7 +120,7 @@ public class JournalService {
     public List<GroupedJournal> getNichtVerbuchteGroupedJournals() {
         TypedQuery<GroupedJournal> journals = em
                 .createQuery(
-                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task) FROM Journal j WHERE j.plantaverbucht = 0 AND j.task.verbuchbar = 1 and j.benutzer=:benutzer GROUP BY j.datum, j.task ORDER BY j.task ASC, j.datum ASC",
+                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task) FROM Journal j WHERE j.plantaverbucht = FALSE AND j.task.verbuchbar = 1 and j.benutzer=:benutzer GROUP BY j.datum, j.task ORDER BY j.task ASC, j.datum ASC",
                         GroupedJournal.class);
         journals.setParameter("benutzer", loginService.getBenutzer());
 
@@ -162,7 +162,7 @@ public class JournalService {
     public void verbuchen(Date datum, String task) {
         List<Journal> list = em
                 .createQuery(
-                        "SELECT j FROM Journal j WHERE j.plantaverbucht = 0 AND j.datum = :datum AND j.task.name = :task and j.benutzer=:benutzer",
+                        "SELECT j FROM Journal j WHERE j.plantaverbucht = FALSE AND j.datum = :datum AND j.task.name = :task and j.benutzer=:benutzer",
                         Journal.class).setParameter("datum", datum).setParameter("task", task).setParameter("benutzer", loginService.getBenutzer()).getResultList();
         for (Journal j : list) {
             j.setPlantaverbucht(true);
