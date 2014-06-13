@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -21,6 +23,9 @@ public class Buchart implements Serializable {
     @Id
     private String art;
 
+    @ManyToOne
+    @JoinColumn(name="benutzer_id")
+    private Benutzer benutzer;
     // bi-directional many-to-one association to Task
     @OneToMany(mappedBy = "buchart")
     private List<Task> tasks;
@@ -54,5 +59,14 @@ public class Buchart implements Serializable {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+
+	public Benutzer getBenutzer() {
+		return benutzer;
+	}
+
+	public void setBenutzer(Benutzer benutzer) {
+		this.benutzer = benutzer;
+	}
+    
 
 }

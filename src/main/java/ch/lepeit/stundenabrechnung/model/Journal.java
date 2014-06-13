@@ -23,14 +23,14 @@ import javax.persistence.TemporalType;
 public class Journal implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer nr;
+	
 	private String bemerkung;
  
 	@Temporal(TemporalType.DATE)
 	private Date datum;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer nr;
 
 	private boolean plantaverbucht;
 
@@ -43,7 +43,7 @@ public class Journal implements Serializable {
 
 	// bi-directional many-to-one association to Task
 	@ManyToOne
-	@JoinColumn(name = "TASK")
+	@JoinColumn(name = "task")
 	private Task task;
 
 	public Journal() {
