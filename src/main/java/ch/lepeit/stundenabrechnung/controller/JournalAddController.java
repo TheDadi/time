@@ -61,16 +61,16 @@ public class JournalAddController implements Serializable {
 		return journal;
 	}
 
-	public String getTask() {
+	public Integer getTask() {
 		if (this.journal == null || this.journal.getTask() == null) {
 			return null;
 		}
 
-		return task.getName();
+		return task.getTask_id();
 	}
 
 	public List<Task> getTasks() {
-		return this.tasks;
+		return this.taskService.getTasks();
 	}
 
 	@PostConstruct
@@ -83,6 +83,7 @@ public class JournalAddController implements Serializable {
 	}
 
 	public String save() {
+		System.out.println("save");
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "save", "save"));
 		// Journal speichern
