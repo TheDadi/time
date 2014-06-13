@@ -29,7 +29,7 @@ public class Task implements Serializable {
     @OneToMany(mappedBy = "task")
     private List<Journal> journals;
     
-  //bi-directional many-to-one association to Benutzer
+  //bi-directional many-to-one association to Benutzerß
   	@ManyToOne
   	@JoinColumn(name="benutzer_id")
   	private Benutzer benutzer;
