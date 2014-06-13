@@ -16,8 +16,6 @@ public class GroupedJournal implements Serializable {
 
 	private Date datum;
 
-	private int plantaverbucht;
-
 	private Double stunden;
 
 	private Task task;
@@ -26,13 +24,11 @@ public class GroupedJournal implements Serializable {
 	}
 
 
-	public GroupedJournal(Date datum, Double stunden, Task task,
-			int plantaverbucht) {
+	public GroupedJournal(Date datum, Double stunden, Task task) {
 		super();
 		this.datum = datum;
 		this.stunden = stunden;
 		this.task = task;
-		this.plantaverbucht = plantaverbucht;
 	}
 
 	public Date getDatum() {
@@ -47,31 +43,11 @@ public class GroupedJournal implements Serializable {
 		return task;
 	}
 
-	public boolean isPlantaverbucht() {
-		if (plantaverbucht == 0)
-			return false;
-		else
-			return true;
-	}
-
 	public void setDatum(Date datum) {
 		this.datum = datum;
 	}
 
-	public void setPlantaverbucht(boolean plantaverbucht) {
 
-		if (plantaverbucht)
-			this.plantaverbucht = 1;
-		else
-			this.plantaverbucht = 0;
-
-	}
-
-	public void setPlantaverbucht(int plantaverbucht) {
-
-		this.plantaverbucht = plantaverbucht;
-
-	}
 
 	public void setStunden(Double stunden) {
 		this.stunden = stunden;

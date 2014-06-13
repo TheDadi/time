@@ -47,17 +47,14 @@ public class JournalService {
      * @return Liste der gruppierten Journaleinträge
      */
     public List<GroupedJournal> getGroupedJournals(Date tag) {
-    	System.out.println("ich bin hier");
-    	System.out.println(em +" : em");
+ 
         TypedQuery<GroupedJournal> journals = em
                 .createQuery(
-                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(jour.datum, SUM(jour.stunden), jour.task,  min(jour.plantaverbucht)) FROM Journal jour WHERE jour.datum = :tag and jour.benutzer=:benutzer GROUP BY jour.datum, jour.task",
+                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(jour.datum, SUM(jour.stunden), jour.task) FROM Journal jour WHERE jour.datum = :tag and jour.benutzer=:benutzer GROUP BY jour.datum, jour.task",
                         GroupedJournal.class);
 
         journals.setParameter("tag", tag);
         journals.setParameter("benutzer", loginService.getBenutzer());
-        System.out.println("nach dem Zugriff");
-        System.out.println(journals.getResultList()+"haha");
 
         return journals.getResultList();
     }
@@ -102,7 +99,7 @@ public class JournalService {
     public List<GroupedJournal> getNichtVerbuchbarGroupedJournals(Date monat) {
         TypedQuery<GroupedJournal> journals = em
                 .createQuery(
-                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task, min(j.plantaverbucht)) FROM Journal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = 0 and j.benutzer=:benutzer GROUP BY j.datum, j.task ORDER BY j.datum ASC",
+                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task) FROM Journal j WHERE YEAR(j.datum) = :jahr AND MONTH(j.datum) = :monat AND j.task.verbuchbar = 0 and j.benutzer=:benutzer GROUP BY j.datum, j.task ORDER BY j.datum ASC",
                         GroupedJournal.class);
 
         Calendar c = new GregorianCalendar();
@@ -123,7 +120,7 @@ public class JournalService {
     public List<GroupedJournal> getNichtVerbuchteGroupedJournals() {
         TypedQuery<GroupedJournal> journals = em
                 .createQuery(
-                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task, min(j.plantaverbucht)) FROM Journal j WHERE j.plantaverbucht = 0 AND j.task.verbuchbar = 1 and j.benutzer=:benutzer GROUP BY j.datum, j.task ORDER BY j.task ASC, j.datum ASC",
+                        "SELECT new ch.lepeit.stundenabrechnung.model.GroupedJournal(j.datum, SUM(j.stunden), j.task) FROM Journal j WHERE j.plantaverbucht = 0 AND j.task.verbuchbar = 1 and j.benutzer=:benutzer GROUP BY j.datum, j.task ORDER BY j.task ASC, j.datum ASC",
                         GroupedJournal.class);
         journals.setParameter("benutzer", loginService.getBenutzer());
 

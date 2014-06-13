@@ -87,7 +87,7 @@ public class JournalAddController implements Serializable {
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "save", "save"));
 		// Journal speichern
 		this.journal.setBenutzer(loginService.getBenutzer());
-		this.journal.setPlantaverbucht(0);
+		this.journal.setPlantaverbucht(false);
 		journalService.save(journal);
 
 		// Neues leeres Journal

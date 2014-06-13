@@ -48,7 +48,7 @@ public class VerbuchenController implements Serializable {
 
     public String verbuchen(GroupedJournal j) {
 
-        j.setPlantaverbucht(true);
+//        j.setPlantaverbucht(true);
 
         journalService.verbuchen(j.getDatum(), j.getTask().getName());
 

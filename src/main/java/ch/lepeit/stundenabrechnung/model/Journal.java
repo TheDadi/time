@@ -32,7 +32,7 @@ public class Journal implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer nr;
 
-	private Integer plantaverbucht;
+	private boolean plantaverbucht;
 
 	private double stunden;
 
@@ -75,10 +75,7 @@ public class Journal implements Serializable {
 
 
 	public boolean getPlantaverbucht() {
-		if (this.plantaverbucht == 0)
-			return false;
-		else
-			return true;
+		return this.plantaverbucht;
 	}
 	
 
@@ -101,18 +98,12 @@ public class Journal implements Serializable {
 	public void setNr(int nr) {
 		this.nr = nr;
 	}
-	public void setPlantaverbucht(int plantaverbucht) {
 
-		this.plantaverbucht = plantaverbucht;
-
-	}
 
 	public void setPlantaverbucht(boolean plantaverbucht) {
 
-		if (plantaverbucht)
-			this.plantaverbucht = 1;
-		else
-			this.plantaverbucht = 0;
+		this.plantaverbucht = plantaverbucht;
+	
 
 	}
 
