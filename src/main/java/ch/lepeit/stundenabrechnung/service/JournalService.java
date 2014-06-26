@@ -39,12 +39,13 @@ public class JournalService {
     public void delete(Journal j) {
     	try{
     		this.em.remove(em.find(Journal.class, j.getNr()));
+    		em.flush();
     		FacesContext.getCurrentInstance().addMessage(null,
     				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gelöscht!", "Erfolgreich gelöscht!"));
     	}catch(Exception e)
     	{
     		FacesContext.getCurrentInstance().addMessage(null,
-    				new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), e.getMessage()));
+    				new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), e.getMessage()));
     	}
         
         
@@ -147,7 +148,17 @@ public class JournalService {
      */
 	public void save(Journal j) {
     
-    	em.persist(j);
+		try{
+	    	em.persist(j);
+	    	em.flush();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gespeichert!", "Erfolgreich gespeichert!"));
+		}catch(Exception e)
+		{
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), e.getMessage()));
+		}
+
     	
         
     }
@@ -161,6 +172,7 @@ public class JournalService {
     public void update(Journal j) {
     	try{
         em.merge(j);
+        em.flush();
     	FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gespeichert!", "Erfolgreich gespeichert!"));
     	}catch(Exception e )

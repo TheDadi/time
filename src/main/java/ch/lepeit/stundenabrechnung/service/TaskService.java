@@ -8,6 +8,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
+
+import org.postgresql.util.PSQLException;
 
 import ch.lepeit.stundenabrechnung.model.Task;
 
@@ -35,12 +39,15 @@ public class TaskService {
 //        em.remove(em.createQuery("Select t From task where t.name =:name and t.benutzer = :benutzer",Task.class).setParameter("name", name).setParameter("benutzer", loginService.getBenutzer()).getSingleResult());
     	try{
     		em.remove(em.find(Task.class, id));
+    		em.flush();
     		FacesContext.getCurrentInstance().addMessage(null,
     				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gelöscht!", "Erfolgreich gelöscht!"));
-    	}catch(Exception e)
+    	}catch(PersistenceException e)
     	{
+    		System.out.println("Exeption caught");
+    		//e.printStackTrace();
     		FacesContext.getCurrentInstance().addMessage(null,
-    				new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), e.getMessage()));
+    				new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), e.getMessage()));
     	}
         
     }
@@ -77,9 +84,9 @@ public class TaskService {
     	try{
     		 em.persist(task);
     		 FacesContext.getCurrentInstance().addMessage(null,
-     				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gelöscht!", "Erfolgreich gelöscht!"));
+    					new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gespeichert!", "Erfolgreich gespreichert!"));
     		
-    	}catch(Exception e)
+    	}catch(PersistenceException e)
     	{
     		FacesContext.getCurrentInstance().addMessage(null,
     				new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), e.getMessage()));

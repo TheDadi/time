@@ -81,8 +81,7 @@ public class JournalAddController implements Serializable {
 
 	public String save() {
 		System.out.println("save");
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gespeichert!", "Erfolgreich gespreichert!"));
+		
 		// Journal speichern
 		this.journal.setBenutzer(loginService.getBenutzer());
 		this.journal.setPlantaverbucht(false);
@@ -90,6 +89,7 @@ public class JournalAddController implements Serializable {
 
 		// Neues leeres Journal
 		this.journal = new Journal();
+		this.journal.setDatum(new Date());
 
 		// Daten der Wochenübersicht neu laden
 		this.journalController.reload();

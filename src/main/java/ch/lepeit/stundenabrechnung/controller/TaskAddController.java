@@ -53,8 +53,7 @@ public class TaskAddController implements Serializable {
     }
 
     public String save() {
-    	FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gespeichert!", "Erfolgreich gespreichert!"));
+    	
         task.setBuchart(buchartService.getBuchart(this.buchart));
         
         task.setBenutzer(loginService.getBenutzer());

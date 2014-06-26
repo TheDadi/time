@@ -17,7 +17,8 @@ public class TaskController {
     private TaskService taskService;
 
     public void deleteTask(int id) {
-        this.taskService.delete(id);
+    		this.taskService.delete(id);
+        
     }
 
     public List<Task> getTasks() {
