@@ -36,7 +36,7 @@ public class KorrekturController extends Observable implements Serializable {
 	@EJB
 	private JournalService journalService;
 
-	private Journal selectedItem;
+	private Journal selectedItem; 
 
 	private List<Journal> selection;
 
