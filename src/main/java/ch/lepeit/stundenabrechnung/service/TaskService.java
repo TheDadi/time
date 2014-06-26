@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -31,7 +33,16 @@ public class TaskService {
      */
     public void delete(int id ) {
 //        em.remove(em.createQuery("Select t From task where t.name =:name and t.benutzer = :benutzer",Task.class).setParameter("name", name).setParameter("benutzer", loginService.getBenutzer()).getSingleResult());
-        em.remove(em.find(Task.class, id));
+    	try{
+    		em.remove(em.find(Task.class, id));
+    		FacesContext.getCurrentInstance().addMessage(null,
+    				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gelöscht!", "Erfolgreich gelöscht!"));
+    	}catch(Exception e)
+    	{
+    		FacesContext.getCurrentInstance().addMessage(null,
+    				new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), e.getMessage()));
+    	}
+        
     }
 
     /**
@@ -63,6 +74,16 @@ public class TaskService {
      * Der zu speichernde Task
      */
     public void save(Task task) {
-        em.persist(task);
+    	try{
+    		 em.persist(task);
+    		 FacesContext.getCurrentInstance().addMessage(null,
+     				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gelöscht!", "Erfolgreich gelöscht!"));
+    		
+    	}catch(Exception e)
+    	{
+    		FacesContext.getCurrentInstance().addMessage(null,
+    				new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), e.getMessage()));
+    	}
+       
     }
 }
