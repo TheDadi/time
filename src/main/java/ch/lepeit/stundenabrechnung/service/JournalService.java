@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -36,7 +37,17 @@ public class JournalService {
      * @param j
      */
     public void delete(Journal j) {
-        this.em.remove(em.find(Journal.class, j.getNr()));
+    	try{
+    		this.em.remove(em.find(Journal.class, j.getNr()));
+    		FacesContext.getCurrentInstance().addMessage(null,
+    				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gelöscht!", "Erfolgreich gelöscht!"));
+    	}catch(Exception e)
+    	{
+    		FacesContext.getCurrentInstance().addMessage(null,
+    				new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), e.getMessage()));
+    	}
+        
+        
     }
 
     /**

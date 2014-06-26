@@ -75,8 +75,7 @@ public class KorrekturEditController implements Serializable, Observer {
     }
 
     public String remove() {
-    	FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gelöscht!", "Erfolgreich gelöscht!"));
+    	
 
     	System.out.println("digi");
         journalService.delete(this.journal);
