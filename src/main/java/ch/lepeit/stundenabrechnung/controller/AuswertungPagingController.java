@@ -22,7 +22,7 @@ import javax.inject.Named;
 @SessionScoped
 public class AuswertungPagingController extends Observable implements Serializable {
     private static final long serialVersionUID = 20120524L;
-
+ 
     private Date monat;
 
     public Date getMonat() {
