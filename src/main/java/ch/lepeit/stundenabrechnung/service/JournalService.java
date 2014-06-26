@@ -149,9 +149,14 @@ public class JournalService {
      */
     public void update(Journal j) {
     	try{
-        em.merge(j);}catch(Exception e )
+        em.merge(j);
+    	FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gespeichert!", "Erfolgreich gespeichert!"));
+    	}catch(Exception e )
         {
         	System.out.println(e.getMessage());
+        	FacesContext.getCurrentInstance().addMessage(null,
+    				new FacesMessage(FacesMessage.SEVERITY_WARN, e.getMessage(), e.getMessage()));
         }
     }
 

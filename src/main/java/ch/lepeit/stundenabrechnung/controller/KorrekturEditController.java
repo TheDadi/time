@@ -63,6 +63,7 @@ public class KorrekturEditController implements Serializable, Observer {
     }
 
     public List<Task> getTasks() {
+    	this.tasks = this.taskService.getTasks();
         return this.tasks;
     }
 
@@ -84,8 +85,7 @@ public class KorrekturEditController implements Serializable, Observer {
     }
 
     public String save() {
-    	FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gespeichert!", "Erfolgreich gespreichert!"));
+
         journalService.update(this.journal);
 		return null;
     }
