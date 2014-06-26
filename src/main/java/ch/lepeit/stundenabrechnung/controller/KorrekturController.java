@@ -37,6 +37,7 @@ public class KorrekturController extends Observable implements Serializable {
 	private JournalService journalService;
 
 	private Journal selectedItem; 
+	
 
 	private List<Journal> selection;
 
