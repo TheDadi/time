@@ -9,6 +9,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -52,9 +54,9 @@ public class KorrekturEditController implements Serializable, Observer {
 		this.journal = journal;
 	}
     
-    public Integer getTask() {
+    public int getTask() {
         if (journal == null || journal.getTask() == null) {
-            return null;
+            return 0;
         }
 
         return journal.getTask().getTask_id();
@@ -72,6 +74,9 @@ public class KorrekturEditController implements Serializable, Observer {
     }
 
     public String remove() {
+    	FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gelöscht!", "Erfolgreich gelöscht!"));
+
     	System.out.println("digi");
         journalService.delete(this.journal);
         this.journal = null;
@@ -79,6 +84,8 @@ public class KorrekturEditController implements Serializable, Observer {
     }
 
     public String save() {
+    	FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gespeichert!", "Erfolgreich gespreichert!"));
         journalService.update(this.journal);
 		return null;
     }

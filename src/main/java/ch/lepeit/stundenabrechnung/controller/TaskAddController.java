@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import ch.lepeit.stundenabrechnung.model.Buchart;
@@ -51,6 +53,8 @@ public class TaskAddController implements Serializable {
     }
 
     public String save() {
+    	FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gespeichert!", "Erfolgreich gespreichert!"));
         task.setBuchart(buchartService.getBuchart(this.buchart));
         
         task.setBenutzer(loginService.getBenutzer());

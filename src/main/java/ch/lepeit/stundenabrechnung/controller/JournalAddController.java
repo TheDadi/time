@@ -38,9 +38,6 @@ public class JournalAddController implements Serializable {
 
 	private Task task;
 
-	public void setTask(Task task) {
-	}
-
 	private Journal journal;
 
 	@Inject
@@ -61,9 +58,9 @@ public class JournalAddController implements Serializable {
 		return journal;
 	}
 
-	public Integer getTask() {
+	public int getTask() {
 		if (this.journal == null || this.journal.getTask() == null) {
-			return null;
+			return 0;
 		}
 
 		return task.getTask_id();
@@ -85,7 +82,7 @@ public class JournalAddController implements Serializable {
 	public String save() {
 		System.out.println("save");
 		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "save", "save"));
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolgreich gespeichert!", "Erfolgreich gespreichert!"));
 		// Journal speichern
 		this.journal.setBenutzer(loginService.getBenutzer());
 		this.journal.setPlantaverbucht(false);
@@ -105,6 +102,7 @@ public class JournalAddController implements Serializable {
 
 		this.journal.setTask(this.task);
 	}
+	
 
 	public void setJournal(Journal journal) {
 		this.journal = journal;
