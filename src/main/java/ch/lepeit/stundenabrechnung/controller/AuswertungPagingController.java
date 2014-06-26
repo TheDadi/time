@@ -11,7 +11,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
- * Paging für die Auswertung
+ * Paging für die Auswertung     
  * 
  * Benachrichtigt Observer, wenn sich der anzuzeigende Monat ändert.
  * 
@@ -32,7 +32,7 @@ public class AuswertungPagingController extends Observable implements Serializab
     @PostConstruct
     public void init() {
         this.monat = new Date();
-    }
+    }     
 
     public String letzterMonat() {
         Calendar c = new GregorianCalendar();
