@@ -11,7 +11,7 @@ public class IdleMonitorView {
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_WARN, "No activity.",
-						"What are you doing over there?"));
+						"What are you doing over there?"));    
 	}
 
 	public void onActive() {
