@@ -6,42 +6,40 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-		<p:messages id="messages" closable="true" />
+	<p:messages id="messages" closable="true" />
 
-		<h:panelGrid columns="5" class="journalHinzufuegen">
-
-			<f:facet name="header">
-					Hinzufuegen
-				</f:facet>
-
-			<h:outputLabel value="Datum" for="popupCal" />
-			<h:outputLabel value="Stunden" for="stunden" />
-			<h:outputLabel value="Task" for="task" />
-			<h:outputLabel value="Bemerkung" for="bemerkung" />
-			<h:panelGroup />
+	<h:panelGrid columns="2" class="journalHinzufuegen">
 
 
-			<p:calendar value="#{journalAddController.journal.datum}"
-				id="popupCal" required="true" requiredMessage="Bitte Datum angeben!" />
 
-			<p:inputText value="#{journalAddController.journal.stunden}" id="stunden"
-				required="true" requiredMessage="Bitte Stunden angeben!"
-				style="margin-left:0px;">
-				<f:convertNumber maxFractionDigits="1" />
-			</p:inputText>
-			<p:selectOneMenu value="#{journalAddController.task}" id="task"
-				required="true" requiredMessage="Waehle einen Task" filter="true"
-				filterMatchMode="startsWith">
-				<f:selectItems value="#{journalAddController.tasks}" var="task"
-					itemLabel="#{task.name}" itemValue="#{task.task_id}" />
-			</p:selectOneMenu>
-			<p:inputText value="#{journalAddController.journal.bemerkung}"
-				id="bemerkung" />
-			<p:commandButton value="save" 
-				actionListener="#{journalAddController.save}" id="withIcon"
-				 icon="ui-icon-disk" ajax="false"/>
+		<h:outputLabel value="Datum" for="popupCal" />
 
-		</h:panelGrid>
+
+
+		<p:calendar value="#{journalAddController.journal.datum}"
+			id="popupCal" required="true" requiredMessage="Bitte Datum angeben!" />
+		<h:outputLabel value="Stunden" for="stunden" />
+		<p:inputText value="#{journalAddController.journal.stunden}"
+			id="stunden" required="true" requiredMessage="Bitte Stunden angeben!"
+			style="margin-left:0px;">
+			<f:convertNumber maxFractionDigits="1" />
+		</p:inputText>
+		<h:outputLabel value="Task" for="task" />
+		<p:selectOneMenu value="#{journalAddController.task}" id="task"
+			required="true" requiredMessage="Waehle einen Task" filter="true"
+			filterMatchMode="startsWith">
+			<f:selectItems value="#{journalAddController.tasks}" var="task"
+				itemLabel="#{task.name}" itemValue="#{task.task_id}" />
+		</p:selectOneMenu>
+		<h:outputLabel value="Bemerkung" for="bemerkung" />
+		<p:inputText value="#{journalAddController.journal.bemerkung}"
+			id="bemerkung" />
+		<br/>
+		<p:commandButton value="save"
+			actionListener="#{journalAddController.save}" id="withIcon"
+			icon="ui-icon-disk" ajax="true" update="journal-woche"/>
+
+	</h:panelGrid>
 
 
 </ui:composition>

@@ -3,16 +3,233 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/WEB-INF/templates/template2.xhtml"
-	xmlns:p="http://primefaces.org/ui">
+	template="/WEB-INF/templates/template.xhtml"
+	xmlns:p="http://primefaces.org/ui"
+		xmlns:pm="http://primefaces.org/mobile">
 
-	<ui:define name="cph_content">
+<f:view renderKitId="PRIMEFACES_MOBILE" />
 
-		<h1>Willkommen auf der neuen Seite der Zeiterfassung!</h1>
-		<h3>Viel Spass!</h3>
-		<br />
-		<br />
-	    <p:clock/>
+	<ui:define name="cph_home">
+
+		<article id="home" class="panel">
+			<header>
+				<h1>Zeiterfassung CC M...</h1>
+				<span class="byline">Banana</span>
+			</header>
+			<a href="#login" class="jumplink pic"> <span
+				class="arrow fa fa-chevron-right"><span>Login</span></span> <h:graphicImage
+					library="images2" name="clock.png" /></a>
+		</article>
+
+	</ui:define>
+
+	<ui:define name="cph_login">
+
+		<article id="login" class="panel login">
+			<header>
+				<h1 style="padding-top: 15px; padding-bottom: 25px;">Login</h1>
+				<h:form id="loginForm">
+
+					<h:panelGrid id="login" columns="1" cellspacing="5"
+						style="width:400px;">
+
+						<p:outputLabel for="benutzername" value="Benutzername:" />
+						<h:panelGroup>
+							<p:inputText id="benutzername"
+								value="#{benutzerController.benutzername}" required="true"
+								requiredMessage="Bitte Benutzername eingeben!"
+								styleClass="form-control" />
+
+							<p:message for="benutzername" />
+						</h:panelGroup>
+
+						<p:outputLabel for="pwinput" value="Passwort: " />
+						<h:panelGroup>
+							<p:password id="pwinput" value="#{benutzerController.passwort}"
+								required="true" requiredMessage="Bitte Passwort eingeben!"
+								styleClass="form-control" />
+							<p:message for="pwinput" />
+						</h:panelGroup>
+						<h:panelGroup>
+							<p:commandButton value="login"
+								action="#{benutzerController.login}" id="withIcon"
+								icon="ui-icon-person" update="loginForm" />
+							<p:commandButton id="registerButton" icon="ui-icon-circle-plus"
+								value="Registrieren" onclick="PF('dlg2').show();" />
+						</h:panelGroup>
+
+					</h:panelGrid>
+
+				</h:form>
+			</header>
+			<h:graphicImage styleClass="pic" library="images2" name="loginbg.jpg" />
+
+		</article>
+		<p:dialog header="Registrieren" widgetVar="dlg2" modal="true"
+			height="650" width="450" resizable="false" hideEffect="size">
+
+			<h:form id="registerForm2">
+				<h:panelGrid id="registerPanel" columns="1">
+
+					<p:outputLabel for="vorname" value="Vorname:" />
+					<h:panelGroup>
+						<p:inputText id="vorname" value="#{benutzerController.vorname}"
+							styleClass="form-control" />
+						<p:message for="vorname" />
+					</h:panelGroup>
+
+					<p:outputLabel for="nachname" value="Nachname:" />
+					<h:panelGroup>
+						<p:inputText id="nachname" value="#{benutzerController.nachname}"
+							styleClass="form-control" />
+						<p:message for="nachname" />
+					</h:panelGroup>
+					<p:outputLabel for="email" value="E-Mail:" />
+					<h:panelGroup>
+						<p:inputText id="email" value="#{benutzerController.email}"
+							styleClass="form-control" />
+						<p:message for="email" />
+					</h:panelGroup>
+					<p:outputLabel for="benutzername" value="Benutzername:" />
+					<h:panelGroup>
+						<p:inputText id="benutzername"
+							value="#{benutzerController.benutzername}"
+							styleClass="form-control" />
+						<p:message for="benutzername" />
+					</h:panelGroup>
+					<p:outputLabel for="password" value="Passwort:" />
+					<h:panelGroup>
+						<p:password id="password" value="#{benutzerController.passwort}"
+							styleClass="form-control" feedback="true" inline="true" />
+						<p:message for="password" />
+					</h:panelGroup>
+				</h:panelGrid>
+				<p:commandButton id="register"
+					action="#{benutzerController.register()}" value="register"
+					icon="ui-icon-check" update="registerPanel" />
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+
+	<ui:define name="cph_register">
+		<article id="register" class="panel">
+			<header>
+				<h1 style="padding-top: 15px; padding-bottom: 25px;">Register</h1>
+
+				<h:form id="registerForm">
+					<h:panelGrid columns="3">
+
+						<p:outputLabel for="vorname" value="Vorname:" />
+						<p:inputText id="vorname" value="#{benutzerController.vorname}"
+							styleClass="form-control" />
+						<p:message for="vorname" />
+						<p:outputLabel for="nachname" value="Nachname:" />
+						<p:inputText id="nachname" value="#{benutzerController.nachname}"
+							styleClass="form-control" />
+						<p:message for="nachname" />
+						<p:outputLabel for="email" value="E-Mail:" />
+						<p:inputText id="email" value="#{benutzerController.email}"
+							styleClass="form-control" />
+						<p:message for="email" />
+						<p:outputLabel for="benutzername" value="Benutzername:" />
+						<p:inputText id="benutzername"
+							value="#{benutzerController.benutzername}"
+							styleClass="form-control" />
+						<p:message for="benutzername" />
+						<p:outputLabel for="password" value="Passwort:" />
+						<p:password id="password" value="#{benutzerController.passwort}"
+							styleClass="form-control" feedback="true" inline="true" />
+						<p:message for="password" />
+					</h:panelGrid>
+					<p:commandButton id="register"
+						action="#{benutzerController.register()}" value="register"
+						icon="ui-icon-check" update="registerForm" />
+				</h:form>
+
+			</header>
+		</article>
+
+	</ui:define>
+
+	<ui:define name="cph_journal">
+	<article id="journal" class="panel">
+			<pm:page id="second">
+		<h:form id="formSecond">
+
+
+			<pm:header id="headerSecond" title="Journal Übersicht">
+				<p:commandButton id="letzteWoche" icon="ui-icon-circle-triangle-w"
+					styleClass="ui-btn-inline ui-icon-arrow-l"
+					actionListener="#{journalController.letzteWoche}"
+					update="journal-woche,date" iconPos="left" style="float:left;" />
+
+
+
+				<p:commandButton id="neachsteWoche" icon="ui-icon-circle-triangle-w"
+					styleClass="ui-btn-inline ui-icon-arrow-r"
+					actionListener="#{journalController.naechsteWoche}"
+					update="journal-woche,date" iconPos="right" style="float:right;" />
+
+			</pm:header>
+
+			<pm:content id="contentSecond">
+				<h2 class="first" id="first">
+					Woche
+					<h:outputText value="#{journalController.woche}" id="date">
+						<f:convertDateTime pattern="w, MMMM yyyy" />
+					</h:outputText>
+					<p:separator></p:separator>
+				</h2>
+
+
+
+				<p:accordionPanel dynamic="true" cache="true" id="journal-woche"
+					value="#{journalController.wochentage}" var="tag">
+					<p:tab title="#{tag.datum}">
+						<p:dataList var="buchung" value="#{tag.buchungen}" id="table">
+							<f:facet name="header">
+								<h:outputText value="#{tag.datum}">
+									<f:convertDateTime pattern="E. d" />
+								</h:outputText>
+							</f:facet>
+							<p:column>
+								<h:outputText value="#{buchung.stunden}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{buchung.task.name}" />
+							</p:column>
+							<f:facet name="footer">
+								<h:outputText value="Total " />
+								<h:outputText value="#{tag.total}">
+									<f:convertNumber maxFractionDigits="1" minFractionDigits="1" />
+								</h:outputText>
+							</f:facet>
+
+						</p:dataList>
+					</p:tab>
+				</p:accordionPanel>
+			</pm:content>
+		</h:form>
+		<pm:footer title="Options" fixed="true">
+			<p:tabMenu activeIndex="0">
+				<p:menuitem value="Home" icon="ui-icon-home" url="#first"
+					iconPos="top" />
+				<p:menuitem value="Settings" icon="ui-icon-gear" url="#second"
+					iconPos="top" />
+				<p:menuitem value="Search" icon="ui-icon-search" url="#"
+					iconPos="top" />
+				<p:menuitem value="Search" icon="ui-icon-search" url="#"
+					iconPos="top" />
+				<p:menuitem value="Search" icon="ui-icon-search" url="#"
+					iconPos="top" />
+
+			</p:tabMenu>
+		</pm:footer>
+	</pm:page>
+
+</article>
+
 	</ui:define>
 
 </ui:composition>

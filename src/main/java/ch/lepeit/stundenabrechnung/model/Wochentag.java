@@ -1,5 +1,6 @@
 package ch.lepeit.stundenabrechnung.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -29,8 +30,9 @@ public class Wochentag {
         return buchungen;
     }
 
-    public Date getDatum() {
-        return datum;
+    public String getDatum() {
+    	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, d MMM yyyy");
+        return simpleDateFormat.format(datum);
     }
 
     public double getTotal() {

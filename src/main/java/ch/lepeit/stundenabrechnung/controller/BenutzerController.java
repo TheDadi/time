@@ -54,7 +54,7 @@ public class BenutzerController {
         	   online = true;
                benutzername="";
                passwort="";
-               return "journal.xhtml";
+               return "#journal";
         }else{
         	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Benutzername oder Passwort falsch", "Benutzername oder Passwort falsch"));
         	RequestContext context = RequestContext.getCurrentInstance();
@@ -80,13 +80,12 @@ public class BenutzerController {
         benutzername="";
         passwort="";
         email="";        System.out.println("warum");
-        return "journal.xhtml";
+        return "#journal";
 
         }else{
         	
         	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Benutzername bereits verwendet", "Benutzername bereits verwendet"));
         	RequestContext context = RequestContext.getCurrentInstance();
-        	context.execute("PF('dlg2').show();");
         	return "index.xhtml";
         }
     }
